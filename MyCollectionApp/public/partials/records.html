@@ -1,0 +1,43 @@
+<form class="form-inline">
+    <div class="form-group">
+        <input type="text" ng-model="search" class="form-control" placeholder="Wyszukaj">
+    </div>
+    <button ui-sref="newRecord" type="submit" class="btn btn-lg btn-primary pull-right">Dodaj nowy album</button>
+</form>
+
+<table class="table table-condensed recordtable list-records">
+    <h3 id="tab-title">Wszystkie albumy</h3>
+    <thead>
+    <tr>
+        <td id="tab1">
+        </td>
+        <td id="tab2">
+        </td>
+        <td id="tab3">
+        </td>
+        <td id="tab4">
+        </td>
+        <td id="tab5">
+        </td>
+    </tr>
+    </thead>
+    <tr ng-repeat="record in records | orderBy: 'artist' | filter: search">
+        <td><a ui-sref="viewRecord({id:record._id})">{{record.artist}}</a></td>
+        <td><a ui-sref="viewRecord({id:record._id})">{{record.album_name}}</a></td>
+        <td id="tab-format"><a ui-sref="viewRecord({id:record._id})">{{record.format}}</a></td>
+        <td id="tab-type" class="text-center"><a ui-sref="viewRecord({id:record._id})">{{record.type}}</a></td>
+        <td class="buttons-big">
+            <a class="btn btn-danger pull-right btn-delete" ng-click="deleteRecord(record)"><i class="fa fa-times"></i></a>
+            <a class="btn btn-primary pull-right" ui-sref="viewRecord({id:record._id})"><i class="fa fa-eye"></i></a>
+        </td>
+        <td class="buttons-small">
+            <a class="pull-right btn-delete" href="#" ng-click="deleteRecord(record)"><i class="fa fa-times icon-red"></i></a>
+            <a class="pull-right" ui-sref="viewRecord({id:record._id})"><i class="fa fa-eye"></i></a>
+        </td>
+    </tr>
+    <div class="row" ng-hide="(records | filter: search ).length">
+        <div class="col-md-9">
+            Brak wyników.
+        </div>
+    </div>
+</table>

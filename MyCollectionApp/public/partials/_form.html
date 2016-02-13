@@ -1,0 +1,91 @@
+<div class="form-group">
+    <label for="artist" class="col-sm-2 control-label">Artysta</label>
+    <div class="col-sm-10">
+        <input type="text" ng-model="record.artist" class="form-control" id="artist" placeholder="Podaj nazwę artysty"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="album_name" class="col-sm-2 control-label">Nazwa albumu</label>
+    <div class="col-sm-10">
+        <input type="text" ng-model="record.album_name" class="form-control" id="album_name" placeholder="Podaj nazwę albumu"/>
+    </div>
+</div>
+<div class="form-group">
+    <label for="format" class="col-sm-2 control-label">Format</label>
+    <div class="col-sm-10">
+        <input type="text" ng-model="record.format" class="form-control" id="format" placeholder="Podaj format (CD, DVD, etc.)"/>
+    </div>
+</div>
+<div class="form-group">
+    <label for="type" class="col-sm-2 control-label">Typ</label>
+    <div class="col-sm-10">
+        <input type="text" ng-model="record.type" class="form-control" id="type" placeholder="Podaj typ (Album, Mini-Album, EP, etc.)"/>
+    </div>
+</div>
+<div class="form-group">
+    <label for="release_date" class="col-sm-2 control-label">Data wydania</label>
+    <div class="col-sm-10">
+        <input type="text" ng-model="record.release_date" class="form-control" id="release_date" placeholder="Podaj datę wydania"/>
+    </div>
+</div>
+<div class="form-group">
+    <label for="label" class="col-sm-2 control-label">Wytwórnia</label>
+    <div class="col-sm-10">
+        <input type="text" ng-model="record.label" class="form-control" id="label" placeholder="Podaj wytwórnię"/>
+    </div>
+</div>
+<div class="form-group form-inline">
+    <label for="cover_art" class="col-sm-2 control-label">Okładka</label>
+    <div class="col-sm-10" id="cover_art">
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+            <span class="btn btn-default btn-file"><span>Wybierz plik</span>
+            <input type="file" ngf-select ng-model="record.file" name="file" accept="image/*" ngf-max-size="2MB"
+                   ngf-model-invalid="errorFiles" class="text-small file" /></span>
+        </div>
+        <div class="row">
+            <!-- actual-->
+            <div class="col-md-2" ng-if="record.cover_art != null && uiRouterState.current.name != 'newRecord'">
+                <p><small>Aktualne:<br/></small>
+                    <img ngf-thumbnail="'/images/' + record.cover_art" class="thumb img-rounded"></p>
+            </div>
+            <!-- new-->
+            <div class="col-md-10">
+                <p ng-if="record.file != null">
+                    <small>Do dodania:<br/></small>
+                    <img ngf-thumbnail="record.file" class="thumb img-rounded">
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-group form-inline">
+    <label for="tracklist" class="col-sm-2 control-label">Tracklista</label>
+    <div class="col-sm-10 track-title-lg">
+        <fieldset data-ng-repeat="track in tracks" id="tracklist" class="track-margin">
+            <div class="input-group">
+                <div class="input-group-addon">{{track.number}}</div>
+                <input type="text" ng-model="track.name" class="form-control" name="" placeholder="Nazwa utworu" style="width:500px">
+            </div>
+            <input type="text" ng-model="track.duration" class="form-control" name="" placeholder="Czas" style="width:75px">
+            <button type="button" class="btn btn-danger" ng-show="$last" ng-click="removeTrack()"><i class="fa fa-times"></i></button>
+        </fieldset>
+        <button type="button" class="btn btn-default track-margin" ng-click="addNewTrack()">Dodaj utwór</button>
+    </div>
+    <div class="col-sm-10 track-title-sm">
+        <fieldset data-ng-repeat="track in tracks" id="tracklist" class="track-margin">
+            <div class="input-group">
+                <div class="input-group-addon">{{track.number}}</div>
+                <input type="text" ng-model="track.name" class="form-control form-inline" name="" placeholder="Nazwa utworu" style="width:160px">
+                <input type="text" ng-model="track.duration" class="form-control form-inline" name="" placeholder="Czas" style="width:75px">
+                <button type="button" class="btn btn-danger" ng-show="$last" ng-click="removeTrack()"><i class="fa fa-times"></i></button>
+            </div>
+        </fieldset>
+        <button type="button" class="btn btn-default track-margin" ng-click="addNewTrack()">Dodaj utwór</button>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-12">
+        <input type="submit" class="btn btn-primary" value="Zapisz"/>
+    </div>
+</div>
